@@ -1,4 +1,5 @@
 import React, { MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -28,59 +29,71 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
   handleMenuClose,
   handleLogout,
   toggleDrawer,
-}) => (
-  <AppBar
-    position="fixed"
-    sx={{ backgroundColor: backgroundColor, color: "#000", boxShadow: "none" }}
-  >
-    <Toolbar>
-      <IconButton
-        edge="start"
-        aria-label="menu"
-        onClick={() => toggleDrawer(true)}
-        sx={{ mr: 2, color: "#000" }}
-      >
-        <FaBars />
-      </IconButton>
+}) => {
+  const navigate = useNavigate();
+  const handleProfileButton = () => {
+    navigate("/profile");
+    handleMenuClose();
+  };
 
-      <Button
-        component={Link}
-        to="/"
-        sx={{
-          flexGrow: 1,
-          textTransform: "none",
-          color: "#000",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h6" component="div">
-          {companyName}
-        </Typography>
-      </Button>
+  return (
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: backgroundColor,
+        color: "#000",
+        boxShadow: "none",
+      }}
+    >
+      <Toolbar>
+        <IconButton
+          edge="start"
+          aria-label="menu"
+          onClick={() => toggleDrawer(true)}
+          sx={{ mr: 2, color: "#000" }}
+        >
+          <FaBars />
+        </IconButton>
 
-      <IconButton
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={onMenuClick}
-        sx={{ color: "#000" }}
-      >
-        <FaUserCircle />
-      </IconButton>
+        <Button
+          component={Link}
+          to="/"
+          sx={{
+            flexGrow: 1,
+            textTransform: "none",
+            color: "#000",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6" component="div">
+            {companyName}
+          </Typography>
+        </Button>
 
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-        sx={{ mt: 1.5 }}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleLogout}>Log out</MenuItem>
-      </Menu>
-    </Toolbar>
-  </AppBar>
-);
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={onMenuClick}
+          sx={{ color: "#000" }}
+        >
+          <FaUserCircle />
+        </IconButton>
+
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          sx={{ mt: 1.5 }}
+        >
+          <MenuItem onClick={handleProfileButton}>Profile</MenuItem>
+          <MenuItem onClick={handleLogout}>Log out</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default AppBarComponent;

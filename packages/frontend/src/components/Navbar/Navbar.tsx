@@ -1,6 +1,8 @@
 import React, { useState, MouseEvent } from "react";
 import { Box, Drawer, Toolbar } from "@mui/material";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../lib/contextLib";
+import { Auth } from "aws-amplify";
 import AppBarComponent from "./AppBar";
 import DrawerComponent from "./Drawer";
 import {
@@ -13,12 +15,14 @@ import {
   FaCog,
   FaExclamationTriangle,
   FaClock,
+  FaUserFriends,
 } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  //const navigate = useNavigate();
+  const { userHasAuthenticated } = useAppContext();
+  const navigate = useNavigate();
 
   const toggleDrawer = (open: boolean) => {
     setDrawerOpen(open);
@@ -32,23 +36,47 @@ const Navbar: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    //navigate("/login");
+  async function handleLogout() {
+    await Auth.signOut();
+    userHasAuthenticated(false);
     console.log("Logged out");
     handleMenuClose();
-  };
+    navigate("/login");
+  }
 
   const drawerItems = [
-    { text: "HR Support", icon: <FaUsers /> },
-    { text: "IT Support", icon: <FaDesktop /> },
-    { text: "Timesheets", icon: <FaClock /> },
-    { text: "Document Request", icon: <FaFileAlt /> },
-    { text: "Time Off Request", icon: <FaCalendarAlt /> },
-    { text: "Company Benefits", icon: <FaDollarSign /> },
-    { icon: <FaUsers />, dividerBefore: true },
-    { text: "Notifications", icon: <FaBell /> },
-    { text: "Settings", icon: <FaCog /> },
-    { text: "Help", icon: <FaExclamationTriangle /> },
+    {
+      text: "User Directory",
+      icon: <FaUserFriends />,
+      path: "/directory",
+    },
+    { text: "HR Support", icon: <FaUsers />, path: "/hr-support" },
+    { text: "IT Support", icon: <FaDesktop />, path: "/it-support" },
+    { text: "Timesheets", icon: <FaClock />, path: "/timesheets" },
+    {
+      text: "Document Request",
+      icon: <FaFileAlt />,
+      path: "/document-request",
+    },
+    {
+      text: "Time Off Request",
+      icon: <FaCalendarAlt />,
+      path: "/time-off-request",
+    },
+    {
+      text: "Company Benefits",
+      icon: <FaDollarSign />,
+      path: "/company-benefits",
+    },
+    {
+      text: "Notifications",
+      icon: <FaBell />,
+      path: "/notifications",
+      dividerBefore: true,
+    },
+    { text: "Notifications", icon: <FaBell />, path: "/notifications" },
+    { text: "Settings", icon: <FaCog />, path: "/settings" },
+    { text: "Help", icon: <FaExclamationTriangle />, path: "/help" },
   ];
 
   return (

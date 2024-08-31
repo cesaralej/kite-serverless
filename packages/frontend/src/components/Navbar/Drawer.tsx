@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   List,
@@ -13,6 +14,7 @@ interface DrawerItem {
   text?: string;
   icon: JSX.Element;
   dividerBefore?: boolean;
+  path: string;
 }
 
 interface DrawerComponentProps {
@@ -24,6 +26,11 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
   items,
   toggleDrawer,
 }) => {
+  const navigate = useNavigate();
+  const handleItemClick = (path: string) => {
+    toggleDrawer(false);
+    navigate(path);
+  };
   return (
     <Box
       sx={{ width: 250 }}
@@ -37,7 +44,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
               <Divider />
             ) : (
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => handleItemClick(item.path)}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>
