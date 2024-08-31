@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { Auth } from "aws-amplify";
 //import Spinner from "../components/Spinner";
 import WelcomeMessage from "../components/Homepage/WelcomeMessage";
 import CompanyAnnouncements from "../components/Homepage/CompanyAnnouncements";
@@ -11,14 +13,39 @@ import HealthAndWellness from "../components/Homepage/HealthAndWellness";
 import NotificationsSummary from "../components/Homepage/NotificationsSummary";
 import LearningAndDevelopment from "../components/Homepage/LearningAndDevelopment";
 import InspirationalStories from "../components/Homepage/InspirationalStories";
+import PulseCheck from "../components/Homepage/PulseCheck";
 
 const Home = () => {
-  const userName = "Cesar";
+  const [name, setName] = useState<string | null>(null);
+  const handlePulseCheckSubmit = (data: {
+    mood: string;
+    stress: string;
+    energy: string;
+  }) => {
+    console.log("Pulse check data:", data);
+    // Send the data to a backend server or store it locally
+  };
+  useEffect(() => {
+    async function fetchUserAttributes() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        const attributes = user.attributes;
 
+        // Replace "name" with your specific attribute key if it's custom
+        const userName = attributes["name"];
+
+        setName(userName);
+      } catch (error) {
+        console.error("Error fetching user attributes:", error);
+      }
+    }
+
+    fetchUserAttributes();
+  }, []);
   return (
     <>
       {/* Main body content */}
-      <WelcomeMessage name={userName} />
+      <WelcomeMessage name={name} />
       <CompanyAnnouncements />
       <TaskManagement />
       <EventsCard />
@@ -27,6 +54,7 @@ const Home = () => {
       <QuickLinks />
       <TeamAndDepartmentUpdates />
       <HealthAndWellness />
+      <PulseCheck onSubmit={handlePulseCheckSubmit} />
       <NotificationsSummary />
       <LearningAndDevelopment />
       <InspirationalStories />

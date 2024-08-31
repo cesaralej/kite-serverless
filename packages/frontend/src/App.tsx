@@ -6,42 +6,39 @@ import {
 } from "react-router-dom";
 import Login from "./pages/LoginPage";
 import Home from "./pages/HomePage";
-//import ChatsPage from "./pages/ChatsPage";
-//import ChatPage, { chatLoader } from "./pages/ChatPage";
-//import Tasks from "./pages/TasksPage";
+import ChatsPage from "./pages/ChatsPage";
+import ChatPage, { chatLoader } from "./pages/ChatPage";
+import ProfilePage from "./pages/ProfilePage";
+import Tasks from "./pages/TasksPage";
+import FilesPage from "./pages/FilesPage";
+import DirectoryPage from "./pages/DirectoryPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import MainLayout from "./layouts/MainLayout";
-//import FilesPage from "./pages/FilesPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useState, useEffect } from "react";
-
-// Placeholder authentication function
-const useAuth = () => {
-  // Replace with your actual authentication logic
-  const [user, setUser] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Simulate authentication check
-    setTimeout(() => {
-      setUser("sampleUser"); // Simulate authenticated user
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  return [user, loading, error] as [string | null, boolean, string | null];
-};
+import { AppContext, AppContextType } from "./lib/contextLib";
+import { Auth } from "aws-amplify";
+import { onError } from "./lib/errorLib";
 
 const App: React.FC = () => {
-  const [user, loading, error] = useAuth();
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
 
-  if (loading) {
-    return <div>Loading...</div>; // Optional: show a loading spinner
-  }
+  useEffect(() => {
+    onLoad();
+  }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    } catch (error) {
+      if (error !== "No current user") {
+        onError(error);
+      }
+    }
+
+    setIsAuthenticating(false);
   }
 
   const router = createBrowserRouter(
@@ -52,15 +49,15 @@ const App: React.FC = () => {
           <Route
             index
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
             }
           />
-          {/*<Route
+          <Route
             path="chats"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <ChatsPage />
               </ProtectedRoute>
             }
@@ -68,7 +65,7 @@ const App: React.FC = () => {
           <Route
             path="chats/:chatId"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <ChatPage />
               </ProtectedRoute>
             }
@@ -77,7 +74,7 @@ const App: React.FC = () => {
           <Route
             path="tasks"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <Tasks />
               </ProtectedRoute>
             }
@@ -85,18 +82,42 @@ const App: React.FC = () => {
           <Route
             path="files"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute>
                 <FilesPage />
               </ProtectedRoute>
             }
-          /> */}
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="directory"
+            element={
+              <ProtectedRoute>
+                <DirectoryPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </>
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    !isAuthenticating && (
+      <AppContext.Provider
+        value={{ isAuthenticated, userHasAuthenticated } as AppContextType}
+      >
+        <RouterProvider router={router} />
+      </AppContext.Provider>
+    )
+  );
 };
 
 export default App;

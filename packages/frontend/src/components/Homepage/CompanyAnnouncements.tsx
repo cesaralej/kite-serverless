@@ -9,11 +9,11 @@ import {
 import { styled } from "@mui/system";
 
 // Define a styled card with dynamic border color
-const StyledCard = styled(Card)<{ borderColor: string }>(
-  ({ borderColor, theme }) => ({
+const StyledCard = styled(Card)<{ bordercolor: string }>(
+  ({ bordercolor, theme }) => ({
     marginBottom: theme.spacing(2),
     borderRadius: theme.shape.borderRadius,
-    borderLeft: `4px solid ${borderColor}`,
+    borderLeft: `4px solid ${bordercolor}`,
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
     "&:hover": {
       transform: "translateY(-3px)",
@@ -55,7 +55,7 @@ const CompanyAnnouncements = () => {
         Company Announcements
       </Typography>
       {announcements.map((announcement, index) => (
-        <StyledCard key={index} borderColor={announcement.borderColor}>
+        <StyledCard key={index} bordercolor={announcement.borderColor}>
           <CardHeader
             avatar={
               // <Avatar src={announcement.avatar} alt={announcement.author} />
