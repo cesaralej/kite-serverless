@@ -7,6 +7,10 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "Conversations": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "Frontend": {
       "type": "sst.aws.StaticSite"
       "url": string
@@ -31,6 +35,10 @@ declare module "sst" {
       "id": string
       "secret": string
       "type": "sst.aws.CognitoUserPoolClient"
+    }
+    "Users": {
+      "name": string
+      "type": "sst.aws.Dynamo"
     }
   }
 }

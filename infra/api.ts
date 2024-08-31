@@ -1,11 +1,11 @@
-import { table } from "./storage";
+import { messagesTable, usersTable, conversationsTable } from "./storage";
 
 // Create the API
 export const api = new sst.aws.ApiGatewayV2("Api", {
   transform: {
     route: {
       handler: {
-        link: [table],
+        link: [messagesTable, usersTable, conversationsTable],
       },
       args: {
         auth: { iam: true },

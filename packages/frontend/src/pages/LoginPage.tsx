@@ -1,26 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Container, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../lib/contextLib";
+import { onError } from "../lib/errorLib";
+import { Auth } from "aws-amplify";
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 import logo from "../assets/logo.png";
-
-const user = "sampleUser";
-const error = null;
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  //const [user, setUser] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const [error, setError] = useState<string | null>(null);
+  const { isAuthenticated, userHasAuthenticated } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (isAuthenticated) {
       navigate("/"); // Redirect to home if already logged in
     }
-  }, [user, navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async () => {
-    navigate("/");
+    setIsLoading(true);
+    try {
+      await Auth.signIn(email, password);
+      userHasAuthenticated(true);
+      console.log("Logged in");
+      navigate("/");
+    } catch (error) {
+      onError(error);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -48,6 +64,7 @@ const Login: React.FC = () => {
           Please log in to continue
         </Typography>
         <TextField
+          autoFocus
           label="Email"
           variant="outlined"
           margin="normal"
@@ -71,17 +88,12 @@ const Login: React.FC = () => {
           color="primary"
           fullWidth
           onClick={handleLogin}
+          disabled={isLoading} // Disable button while loading
         >
-          Log In
+          {isLoading ? <CircularProgress size={24} /> : "Log In"}
         </Button>
-        {error && (
-          <Typography color="error" variant="body2" marginTop={2}>
-            {error}
-          </Typography>
-        )}
       </Box>
     </Container>
   );
 };
-
 export default Login;
