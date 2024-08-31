@@ -1,0 +1,284 @@
+{
+  "mock": [
+    {
+      "id": 1,
+      "person": "John Doe",
+      "messages": [
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T09:15:00Z",
+          "content": "Hey, did you get the report I sent yesterday?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T09:20:00Z",
+          "content": "Yes, I did. I'm reviewing it now."
+        },
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T09:25:00Z",
+          "content": "Great! Let me know if you need any changes."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T09:30:00Z",
+          "content": "Will do. I should have feedback for you by noon."
+        },
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T09:35:00Z",
+          "content": "Perfect, thanks!"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T11:50:00Z",
+          "content": "I finished the review. Sent you my comments."
+        },
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T12:00:00Z",
+          "content": "Thanks, I'll check them out."
+        },
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T12:30:00Z",
+          "content": "The suggestions look good. I'll update the report."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T12:45:00Z",
+          "content": "Great! Let me know once it's done."
+        },
+        {
+          "sender": "John Doe",
+          "time": "2024-08-09T13:00:00Z",
+          "content": "Sure thing. Thanks for your help."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "person": "Jane Smith",
+      "messages": [
+        {
+          "sender": "Jane Smith",
+          "time": "2024-08-08T14:10:00Z",
+          "content": "Can you help me with the presentation for tomorrow?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-08T14:20:00Z",
+          "content": "Of course. What do you need help with?"
+        },
+        {
+          "sender": "Jane Smith",
+          "time": "2024-08-08T14:25:00Z",
+          "content": "Just a quick review and maybe some design suggestions."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-08T14:35:00Z",
+          "content": "Sure, send it over and I'll take a look."
+        },
+        {
+          "sender": "Jane Smith",
+          "time": "2024-08-08T14:40:00Z",
+          "content": "Sent it. Thanks a lot!"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-08T15:00:00Z",
+          "content": "Got it. I’ll work on it and get back to you soon."
+        },
+        {
+          "sender": "Jane Smith",
+          "time": "2024-08-08T16:00:00Z",
+          "content": "Take your time. The meeting is at 10 AM tomorrow."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-08T17:30:00Z",
+          "content": "I made some adjustments. Check your inbox."
+        },
+        {
+          "sender": "Jane Smith",
+          "time": "2024-08-08T17:45:00Z",
+          "content": "The changes look great! Thanks again!"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-08T18:00:00Z",
+          "content": "Anytime! Good luck with the presentation."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "person": "Michael Brown",
+      "messages": [
+        {
+          "sender": "Michael Brown",
+          "time": "2024-08-09T10:00:00Z",
+          "content": "Do you have the minutes from last week’s meeting?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T10:10:00Z",
+          "content": "Yes, I do. I'll forward them to you."
+        },
+        {
+          "sender": "Michael Brown",
+          "time": "2024-08-09T10:15:00Z",
+          "content": "Thanks, that would be helpful."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T10:20:00Z",
+          "content": "Just sent them. Let me know if you need anything else."
+        },
+        {
+          "sender": "Michael Brown",
+          "time": "2024-08-09T10:25:00Z",
+          "content": "Got it, thanks! That's all for now."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T10:30:00Z",
+          "content": "Alright, happy to help!"
+        },
+        {
+          "sender": "Michael Brown",
+          "time": "2024-08-09T10:35:00Z",
+          "content": "By the way, are we still on for the client call at 3 PM?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T10:40:00Z",
+          "content": "Yes, I’ll be there."
+        },
+        {
+          "sender": "Michael Brown",
+          "time": "2024-08-09T10:45:00Z",
+          "content": "Great, talk to you then."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-09T10:50:00Z",
+          "content": "See you later!"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "person": "Emily Johnson",
+      "messages": [
+        {
+          "sender": "Emily Johnson",
+          "time": "2024-08-07T13:00:00Z",
+          "content": "I’m finalizing the budget proposal. Any last-minute changes?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-07T13:05:00Z",
+          "content": "I reviewed it earlier, and it looks good to me."
+        },
+        {
+          "sender": "Emily Johnson",
+          "time": "2024-08-07T13:10:00Z",
+          "content": "Perfect! I'll send it to the finance team then."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-07T13:15:00Z",
+          "content": "Great. Let me know if they have any questions."
+        },
+        {
+          "sender": "Emily Johnson",
+          "time": "2024-08-07T13:20:00Z",
+          "content": "Will do. Thanks for the quick review."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-07T13:30:00Z",
+          "content": "No problem, happy to help!"
+        },
+        {
+          "sender": "Emily Johnson",
+          "time": "2024-08-07T13:35:00Z",
+          "content": "By the way, are you attending the team lunch tomorrow?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-07T13:40:00Z",
+          "content": "Yes, I’ll be there. Looking forward to it."
+        },
+        {
+          "sender": "Emily Johnson",
+          "time": "2024-08-07T13:45:00Z",
+          "content": "Awesome! See you tomorrow then."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-07T13:50:00Z",
+          "content": "See you!"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "person": "Chris Lee",
+      "messages": [
+        {
+          "sender": "Chris Lee",
+          "time": "2024-08-06T11:00:00Z",
+          "content": "Are you free for a quick call about the new project?"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-06T11:05:00Z",
+          "content": "Sure, I have some time now. Do you want to hop on a call?"
+        },
+        {
+          "sender": "Chris Lee",
+          "time": "2024-08-06T11:10:00Z",
+          "content": "Yes, that works. I'll send you a Zoom link."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-06T11:15:00Z",
+          "content": "Got it. I’ll join in a minute."
+        },
+        {
+          "sender": "Chris Lee",
+          "time": "2024-08-06T11:20:00Z",
+          "content": "Great, talk to you soon."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-06T12:00:00Z",
+          "content": "That was a productive discussion."
+        },
+        {
+          "sender": "Chris Lee",
+          "time": "2024-08-06T12:05:00Z",
+          "content": "Agreed. I’ll start drafting the project plan."
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-06T12:10:00Z",
+          "content": "Let me know if you need any input."
+        },
+        {
+          "sender": "Chris Lee",
+          "time": "2024-08-06T12:15:00Z",
+          "content": "Will do. Thanks for your help!"
+        },
+        {
+          "sender": "You",
+          "time": "2024-08-06T12:20:00Z",
+          "content": "Anytime. Talk to you later."
+        }
+      ]
+    }
+  ]
+}
