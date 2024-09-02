@@ -10,8 +10,10 @@ import ChatsPage from "./pages/ChatsPage";
 import ChatPage, { chatLoader } from "./pages/ChatPage";
 import ProfilePage from "./pages/ProfilePage";
 import Tasks from "./pages/TasksPage";
+import NewTaskPage from "./pages/NewTaskPage";
 import FilesPage from "./pages/FilesPage";
 import DirectoryPage from "./pages/DirectoryPage";
+import LearningResourcesPage from "./pages/LearningResourcesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -80,6 +82,14 @@ const App: React.FC = () => {
             }
           />
           <Route
+            path="tasks/new"
+            element={
+              <ProtectedRoute>
+                <NewTaskPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="files"
             element={
               <ProtectedRoute>
@@ -103,6 +113,15 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="learn"
+            element={
+              <ProtectedRoute>
+                <LearningResourcesPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </>

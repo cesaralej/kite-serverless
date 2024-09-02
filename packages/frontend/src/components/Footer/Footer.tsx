@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
 import { FaHome, FaComments, FaTasks, FaFolder } from "react-icons/fa";
@@ -50,17 +50,22 @@ const Footer: React.FC = () => {
   const location = useLocation();
   const [value, setValue] = useState<number>(0);
 
-  const navItems = [
-    { label: "Home", icon: <FaHome />, to: "/", value: 0 },
-    { label: "Chats", icon: <FaComments />, to: "/chats", value: 1 },
-    { label: "Tasks", icon: <FaTasks />, to: "/tasks", value: 2 },
-    { label: "Files", icon: <FaFolder />, to: "/files", value: 3 },
-  ];
+  const navItems = useMemo(
+    () => [
+      { label: "Home", icon: <FaHome />, to: "/", value: 0 },
+      { label: "Chats", icon: <FaComments />, to: "/chats", value: 1 },
+      { label: "Tasks", icon: <FaTasks />, to: "/tasks", value: 2 },
+      { label: "Files", icon: <FaFolder />, to: "/files", value: 3 },
+    ],
+    []
+  );
 
   useEffect(() => {
-    const currentItem = navItems.find((item) => item.to === location.pathname);
+    const currentItem = navItems.find(
+      (item: { to: string }) => item.to === location.pathname
+    );
     setValue(currentItem ? currentItem.value : 0);
-  }, [location.pathname]);
+  }, [location.pathname, navItems]);
 
   return (
     <BottomNavigation

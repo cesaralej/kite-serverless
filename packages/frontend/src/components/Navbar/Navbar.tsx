@@ -16,6 +16,7 @@ import {
   FaExclamationTriangle,
   FaClock,
   FaUserFriends,
+  FaBook,
 } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
@@ -67,6 +68,11 @@ const Navbar: React.FC = () => {
       text: "Company Benefits",
       icon: <FaDollarSign />,
       path: "/company-benefits",
+    },
+    {
+      text: "Learning Resources",
+      icon: <FaBook />,
+      path: "/learn",
     },
     {
       text: "Notifications",

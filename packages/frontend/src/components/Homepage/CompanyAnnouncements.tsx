@@ -1,4 +1,3 @@
-import React from "react";
 import { Typography, Box, Card, CardContent, CardHeader } from "@mui/material";
 import { styled } from "@mui/system";
 import { FaBriefcase, FaChartLine, FaAward } from "react-icons/fa";

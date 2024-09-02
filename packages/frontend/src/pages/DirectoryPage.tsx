@@ -26,7 +26,7 @@ const mockEmployees = [
     jobTitle: "Software Engineer",
     department: "Engineering",
     status: "online",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const mockEmployees = [
     jobTitle: "Product Manager",
     department: "Product",
     status: "away",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=male",
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const mockEmployees = [
     jobTitle: "HR Specialist",
     department: "Human Resources",
     status: "offline",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
   },
   {
     id: 4,
@@ -50,7 +50,7 @@ const mockEmployees = [
     jobTitle: "UX Designer",
     department: "Design",
     status: "online",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=male",
   },
   {
     id: 5,
@@ -58,7 +58,7 @@ const mockEmployees = [
     jobTitle: "Data Analyst",
     department: "Data Science",
     status: "offline",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const mockEmployees = [
     jobTitle: "DevOps Engineer",
     department: "Engineering",
     status: "online",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=male",
   },
   {
     id: 7,
@@ -74,7 +74,7 @@ const mockEmployees = [
     jobTitle: "Marketing Specialist",
     department: "Marketing",
     status: "away",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
   },
   {
     id: 8,
@@ -82,7 +82,7 @@ const mockEmployees = [
     jobTitle: "Customer Support",
     department: "Support",
     status: "online",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=male",
   },
   {
     id: 9,
@@ -90,7 +90,7 @@ const mockEmployees = [
     jobTitle: "Sales Executive",
     department: "Sales",
     status: "offline",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=female",
   },
   {
     id: 10,
@@ -98,7 +98,7 @@ const mockEmployees = [
     jobTitle: "Project Manager",
     department: "Project Management",
     status: "online",
-    avatar: "",
+    avatar: "https://xsgames.co/randomusers/avatar.php?g=male",
   },
 ];
 
@@ -108,7 +108,7 @@ const EmployeeDirectory: React.FC = () => {
     null
   );
   const [sortOption, setSortOption] = useState<string>("alphabetical");
-  const [filteredEmployees, setFilteredEmployees] = useState(mockEmployees);
+  const [filteredEmployees] = useState(mockEmployees);
 
   const navigate = useNavigate();
 
@@ -134,7 +134,7 @@ const EmployeeDirectory: React.FC = () => {
   };
 
   // Navigate to employee profile
-  const handleEmployeeClick = (id: number) => {
+  const handleEmployeeClick = () => {
     navigate(`/profile`);
   };
 
@@ -210,7 +210,7 @@ const EmployeeDirectory: React.FC = () => {
             <React.Fragment key={employee.id}>
               <ListItem
                 button
-                onClick={() => handleEmployeeClick(employee.id)}
+                onClick={() => handleEmployeeClick()}
                 sx={{
                   "&:hover": {
                     backgroundColor: "#f0f0f0",

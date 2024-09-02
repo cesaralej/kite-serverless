@@ -26,7 +26,7 @@ const NotFoundPage: React.FC = () => {
       </Typography>
       <Button
         component={Link}
-        to={window.history.back()}
+        to={"/"}
         variant="contained"
         color="primary"
         sx={{ marginTop: "1rem", padding: "0.5rem 1.5rem" }}

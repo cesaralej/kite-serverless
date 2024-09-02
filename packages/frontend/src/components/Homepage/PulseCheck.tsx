@@ -59,7 +59,15 @@ const PulseCheck: React.FC<PulseCheckProps> = ({ onSubmit }) => {
     }
   };
 
-  const QuestionComponent = ({ question, value, onChange }) => {
+  const QuestionComponent = ({
+    question,
+    value,
+    onChange,
+  }: {
+    question: Question;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }) => {
     return (
       <FormControl component="fieldset" sx={{ marginBottom: 2 }}>
         <FormLabel component="legend">{question.label}</FormLabel>
@@ -100,7 +108,7 @@ const PulseCheck: React.FC<PulseCheckProps> = ({ onSubmit }) => {
           key={index}
           question={question}
           value={index === 0 ? mood : index === 1 ? stress : energy}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             if (index === 0) {
               setMood(e.target.value);
             } else if (index === 1) {
