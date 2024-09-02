@@ -1,20 +1,13 @@
 // Create an S3 bucket
 export const bucket = new sst.aws.Bucket("Uploads");
 
-// Create the DynamoDB table for Messages with GSI
+// Create the DynamoDB table for Messages
 export const messagesTable = new sst.aws.Dynamo("Messages", {
   fields: {
-    conversationId: "string",
+    userId: "string",
     messageId: "string",
-    timestamp: "string",
   },
-  primaryIndex: { hashKey: "conversationId", rangeKey: "messageId" },
-  globalIndexes: {
-    TimestampIndex: {
-      hashKey: "conversationId",
-      rangeKey: "timestamp",
-    },
-  },
+  primaryIndex: { hashKey: "userId", rangeKey: "messageId" },
 });
 
 // Create the DynamoDB table for Users
@@ -25,16 +18,11 @@ export const usersTable = new sst.aws.Dynamo("Users", {
   primaryIndex: { hashKey: "userId" },
 });
 
-// Create the DynamoDB table for Conversations with GSI
+// Create the DynamoDB table for Conversations
 export const conversationsTable = new sst.aws.Dynamo("Conversations", {
   fields: {
     conversationId: "string",
     userId: "string",
   },
   primaryIndex: { hashKey: "conversationId", rangeKey: "userId" },
-  globalIndexes: {
-    UserIndex: {
-      hashKey: "userId",
-    },
-  },
 });
