@@ -31,11 +31,8 @@ const ChatsPage: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
-    // Simulate fetching chat data
-    setTimeout(() => {
-      setChats(mock.mock);
-      setLoadingChats(false);
-    }, 1000);
+    setChats(mock.mock);
+    setLoadingChats(false);
   }, []);
 
   if (loadingChats) {

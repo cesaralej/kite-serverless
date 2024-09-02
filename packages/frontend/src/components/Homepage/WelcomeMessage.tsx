@@ -2,7 +2,6 @@ import React from "react";
 import { Typography, Box } from "@mui/material";
 import { styled } from "@mui/system";
 import { FaSun, FaMoon } from "react-icons/fa";
-import banner from "../../assets/banner.jpg";
 
 interface WelcomeMessageProps {
   name?: string | null;
@@ -10,37 +9,24 @@ interface WelcomeMessageProps {
 
 const Banner = styled(Box)(() => ({
   position: "relative",
-  borderRadius: "8px",
-  padding: "20px",
-  marginBottom: "20px",
-  color: "black",
-  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
+  borderRadius: "12px",
+  padding: "24px",
+  marginBottom: "24px",
+  backgroundColor: "#f5f5f5",
+  color: "#333",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  overflow: "hidden", // Ensures that the pseudo-element doesn't spill out of the container
-
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundImage: `url(${banner})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    opacity: 0.3, // Adjust this value for more or less opacity
-    zIndex: -1, // Ensures the image stays behind the content
-  },
+  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
 }));
 
-const IconWrapper = styled(Box)({
-  fontSize: "36px",
+const IconWrapper = styled(Box)(() => ({
+  fontSize: "32px",
+  color: "black",
   display: "flex",
   alignItems: "center",
-  marginRight: "15px",
-});
+  marginRight: "16px",
+}));
 
 const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ name }) => {
   const getGreeting = (): string => {
@@ -49,6 +35,7 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ name }) => {
     if (hour < 18) return "Good Afternoon";
     return "Good Evening";
   };
+
   const getGreetingIcon = () => {
     const hour = new Date().getHours();
     if (hour < 18) return <FaSun />;
@@ -58,16 +45,15 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({ name }) => {
   return (
     <Banner>
       <IconWrapper>{getGreetingIcon()}</IconWrapper>
-      <Box mb={4}>
-        <Typography variant="h4" sx={{ marginBottom: "16px" }}>
+      <Box>
+        <Typography variant="h4" sx={{ fontWeight: 600, marginBottom: "8px" }}>
           {getGreeting()},{" "}
-          <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
+          <span style={{ fontWeight: 700, fontStyle: "italic" }}>
             {name ? name : "Guest"}!
-          </span>{" "}
-          Here's what's happening today.
+          </span>
         </Typography>
-        <Typography variant="subtitle1" color="textSecondary">
-          &quot;Inspiring Quote or Company Mission Statement Here&quot;
+        <Typography variant="subtitle2" color="textSecondary">
+          "Inspiring Quote or Company Mission Statement Here"
         </Typography>
       </Box>
     </Banner>

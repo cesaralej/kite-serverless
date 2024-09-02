@@ -12,7 +12,8 @@ import {
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Import Link for routing
 
-const backgroundColor = "#FEF7FF";
+const backgroundColor = "primary";
+const fontColor = "white";
 const companyName = "KiTE Company";
 
 interface AppBarComponentProps {
@@ -41,7 +42,6 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
       position="fixed"
       sx={{
         backgroundColor: backgroundColor,
-        color: "#000",
         boxShadow: "none",
       }}
     >
@@ -50,7 +50,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           edge="start"
           aria-label="menu"
           onClick={() => toggleDrawer(true)}
-          sx={{ mr: 2, color: "#000" }}
+          sx={{ mr: 2, color: fontColor }}
         >
           <FaBars />
         </IconButton>
@@ -61,7 +61,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           sx={{
             flexGrow: 1,
             textTransform: "none",
-            color: "#000",
+            color: fontColor,
             display: "flex",
             alignItems: "center",
           }}
@@ -76,7 +76,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={onMenuClick}
-          sx={{ color: "#000" }}
+          sx={{ color: fontColor }}
         >
           <FaUserCircle />
         </IconButton>

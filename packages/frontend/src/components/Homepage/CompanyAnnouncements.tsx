@@ -1,12 +1,7 @@
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Avatar,
-} from "@mui/material";
+import React from "react";
+import { Typography, Box, Card, CardContent, CardHeader } from "@mui/material";
 import { styled } from "@mui/system";
+import { FaBriefcase, FaChartLine, FaAward } from "react-icons/fa";
 
 // Define a styled card with dynamic border color
 const StyledCard = styled(Card)<{ bordercolor: string }>(
@@ -28,7 +23,7 @@ const CompanyAnnouncements = () => {
       description:
         "We're excited to announce a new company policy that will benefit all employees. Please review the details in the company intranet.",
       author: "HR Department",
-      avatar: "https://example.com/hr-avatar.jpg",
+      icon: <FaBriefcase size={40} color="#f44336" />, // HR Department icon
       borderColor: "#f44336", // Red for HR Department
     },
     {
@@ -36,7 +31,7 @@ const CompanyAnnouncements = () => {
       description:
         "Stay up-to-date with the latest industry trends and their impact on our business.",
       author: "Marketing Team",
-      avatar: "https://example.com/marketing-avatar.jpg",
+      icon: <FaChartLine size={40} color="#ff9800" />, // Marketing Team icon
       borderColor: "#ff9800", // Orange for Marketing Team
     },
     {
@@ -44,7 +39,7 @@ const CompanyAnnouncements = () => {
       description:
         "Congratulations to [Employee Name] for being named Employee of the Month! Their exceptional work has made a significant impact on our team.",
       author: "Management Team",
-      avatar: "https://example.com/management-avatar.jpg",
+      icon: <FaAward size={40} color="#4caf50" />, // Management Team icon
       borderColor: "#4caf50", // Green for Management Team
     },
   ];
@@ -57,10 +52,7 @@ const CompanyAnnouncements = () => {
       {announcements.map((announcement, index) => (
         <StyledCard key={index} bordercolor={announcement.borderColor}>
           <CardHeader
-            avatar={
-              // <Avatar src={announcement.avatar} alt={announcement.author} />
-              <Avatar src={announcement.author} />
-            }
+            avatar={announcement.icon}
             title={<Typography variant="h6">{announcement.title}</Typography>}
             subheader={
               <Typography variant="body2" color="textSecondary">
