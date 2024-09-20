@@ -40,6 +40,11 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "WSApi": {
+      "managementEndpoint": string
+      "type": "sst.aws.ApiGatewayWebSocket"
+      "url": string
+    }
   }
 }
 export {}

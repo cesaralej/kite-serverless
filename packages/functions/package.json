@@ -5,6 +5,7 @@
     "@aws-sdk/client-dynamodb": "^3.637.0",
     "@aws-sdk/lib-dynamodb": "^3.637.0",
     "@kite/core": "*",
+    "aws-sdk": "^2.1691.0",
     "sst": "*",
     "uuid": "^10.0.0"
   },
