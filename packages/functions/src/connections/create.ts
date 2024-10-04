@@ -7,6 +7,7 @@ import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const main = Util.handler(async (event) => {
+  console.log("SM User: ", event.requestContext.authorizer);
   let data = {
     content: "",
     attachment: "",

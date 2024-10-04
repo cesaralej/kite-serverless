@@ -27,9 +27,13 @@ const Login: React.FC = () => {
   }, [isAuthenticated, navigate]);
 
   const handleLogin = async () => {
+    const defaultEmail = "cesar@comkite.com";
+    const defaultPassword = "Passw0rd!";
     setIsLoading(true);
     try {
-      await Auth.signIn(email, password);
+      const loginEmail = email || defaultEmail;
+      const loginPassword = password || defaultPassword;
+      await Auth.signIn(loginEmail, loginPassword);
       userHasAuthenticated(true);
       console.log("Logged in");
       navigate("/");

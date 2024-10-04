@@ -6,18 +6,20 @@ import { DeleteCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const main = Util.handler(async (event) => {
+  //console.log("Disconnect event", event);
   const connectionId = event.requestContext.connectionId;
+  //console.log("ConnectionId: ", connectionId);
   const params = {
-    TableName: Resource.Conversations.name,
+    TableName: Resource.Connections.name,
     Key: {
-      conversationId: connectionId, // The id of the conversation
-      userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
+      connectionId: connectionId, // The id of the conversation
     },
   };
+  //console.log(`Deleting connection ${connectionId} from table`);
   try {
     // Remove the connection from the DynamoDB table
     await dynamoDb.send(new DeleteCommand(params));
-    console.log(`Connection ${connectionId} deleted from table`);
+    console.log(`Connection ${connectionId} disconnected`);
 
     // Return a success message
     return JSON.stringify({ message: `Disconnected ${connectionId}` });

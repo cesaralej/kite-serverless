@@ -1,7 +1,9 @@
 import { api } from "./api";
+import { wsapi } from "./websocket";
 import { bucket } from "./storage";
 
 const region = aws.getRegionOutput().name;
+const accountId = aws.getCallerIdentityOutput({}).accountId;
 
 export const userPool = new sst.aws.CognitoUserPool("UserPool", {
   usernames: ["email"],
@@ -39,6 +41,13 @@ export const identityPool = new sst.aws.CognitoIdentityPool("IdentityPool", {
             api.nodes.api.id,
             "/*/*/*"
           ),
+        ],
+      },
+      {
+        actions: ["execute-api:*"],
+        resources: [
+          "arn:aws:execute-api:us-east-1:376129882365:0ck7r5veaj/$default/POST/@connections/*",
+          "arn:aws:lambda:us-east-1:376129882365:function:kite-cesargarcia-WSApiRouteNxtvexHandlerFunction",
         ],
       },
     ],

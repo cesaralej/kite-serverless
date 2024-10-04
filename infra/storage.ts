@@ -26,3 +26,11 @@ export const conversationsTable = new sst.aws.Dynamo("Conversations", {
   },
   primaryIndex: { hashKey: "conversationId", rangeKey: "userId" },
 });
+
+// Create the DynamoDB table for Connections
+export const connectionsTable = new sst.aws.Dynamo("Connections", {
+  fields: {
+    connectionId: "string",
+  },
+  primaryIndex: { hashKey: "connectionId" },
+});

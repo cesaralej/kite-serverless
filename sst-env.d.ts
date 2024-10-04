@@ -7,6 +7,10 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "Connections": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "Conversations": {
       "name": string
       "type": "sst.aws.Dynamo"

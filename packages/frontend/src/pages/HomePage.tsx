@@ -11,9 +11,11 @@ import HealthAndWellness from "../components/Homepage/HealthAndWellness";
 import LearningAndDevelopment from "../components/Homepage/LearningAndDevelopment";
 import InspirationalStories from "../components/Homepage/InspirationalStories";
 import PulseCheck from "../components/Homepage/PulseCheck";
+import WebSocketTest from "../components/WebSocketTest";
 
 const Home = () => {
   const [name, setName] = useState<string | null>(null);
+
   const handlePulseCheckSubmit = (data: {
     mood: string;
     stress: string;
@@ -39,11 +41,13 @@ const Home = () => {
 
     fetchUserAttributes();
   }, []);
+
   return (
     <>
-      {/* Main body content */}
-      <WelcomeMessage name={name} />
-      <CompanyAnnouncements />
+      {/* Main body content 
+      <WelcomeMessage name={name} />*/}
+      <WebSocketTest />
+      {/*<CompanyAnnouncements />
       <TaskManagement />
       <EventsCard />
       <EmployeeHighlights />
@@ -51,7 +55,7 @@ const Home = () => {
       <HealthAndWellness />
       <PulseCheck onSubmit={handlePulseCheckSubmit} />
       <LearningAndDevelopment />
-      <InspirationalStories />
+      <InspirationalStories />*/}
     </>
   );
 };
