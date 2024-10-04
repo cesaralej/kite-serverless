@@ -21,8 +21,8 @@ const NewTaskPage: React.FC = () => {
   const [taskTitle, setTaskTitle] = useState<string>("");
   const [taskDescription, setTaskDescription] = useState<string>("");
   const [priority, setPriority] = useState<string>("");
-  const [dueDate, setDueDate] = useState<Date | null>(null);
-  const [dueTime, setDueTime] = useState<Date | null>(null);
+  //const [dueDate, setDueDate] = useState<Date | null>(null);
+  //const [dueTime, setDueTime] = useState<Date | null>(null);
   const [addToChat, setAddToChat] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -99,21 +99,15 @@ const NewTaskPage: React.FC = () => {
         <Box sx={{ mb: 2 }}>
           <DatePicker
             label="Due Date"
-            value={dueDate}
-            onChange={(date: Date | null) => setDueDate(date)}
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" />
-            )}
+            //value={dueDate}
+            //onChange={(date: Date | null) => setDueDate(date)}
           />
         </Box>
         <Box sx={{ mb: 2 }}>
           <TimePicker
             label="Due Time"
-            value={dueTime}
-            onChange={(time: Date | null) => setDueTime(time)}
-            renderInput={(params) => (
-              <TextField {...params} fullWidth variant="outlined" />
-            )}
+            //value={dueTime}
+            //onChange={(time: Date | null) => setDueTime(time)}
           />
         </Box>
       </LocalizationProvider>
