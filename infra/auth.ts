@@ -36,7 +36,7 @@ export const identityPool = new sst.aws.CognitoIdentityPool("IdentityPool", {
             "arn:aws:execute-api:",
             region,
             ":",
-            aws.getCallerIdentityOutput({}).accountId,
+            accountId,
             ":",
             api.nodes.api.id,
             "/*/*/*"
@@ -46,8 +46,15 @@ export const identityPool = new sst.aws.CognitoIdentityPool("IdentityPool", {
       {
         actions: ["execute-api:*"],
         resources: [
-          "arn:aws:execute-api:us-east-1:376129882365:0ck7r5veaj/$default/POST/@connections/*",
-          "arn:aws:lambda:us-east-1:376129882365:function:kite-cesargarcia-WSApiRouteNxtvexHandlerFunction",
+          $concat(
+            "arn:aws:execute-api:",
+            region,
+            ":",
+            accountId,
+            ":",
+            wsapi.nodes.api.id,
+            "/*/*/*"
+          ),
         ],
       },
     ],

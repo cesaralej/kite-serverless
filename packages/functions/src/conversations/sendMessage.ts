@@ -22,6 +22,7 @@ export const main: APIGatewayProxyHandler = async (event) => {
 
   // Extract the actual message content from the body
   const messageContent = body.data.message;
+  //console.log("Message content:", messageContent);
   const connectionId = body.data.userId;
 
   if (!messageContent) {
@@ -61,7 +62,7 @@ export const main: APIGatewayProxyHandler = async (event) => {
     };
 
     await apigwManagementApi.send(new PostToConnectionCommand(postParams));
-    console.log("Message sent:", messageContent);
+    //console.log("Message sent:", messageContent);
 
     return {
       statusCode: 200,

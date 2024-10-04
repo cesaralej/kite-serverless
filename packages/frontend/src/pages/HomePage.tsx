@@ -44,10 +44,10 @@ const Home = () => {
 
   return (
     <>
-      {/* Main body content 
-      <WelcomeMessage name={name} />*/}
+      {/* Main body content */}
+      <WelcomeMessage name={name} />
       <WebSocketTest />
-      {/*<CompanyAnnouncements />
+      <CompanyAnnouncements />
       <TaskManagement />
       <EventsCard />
       <EmployeeHighlights />
@@ -55,7 +55,7 @@ const Home = () => {
       <HealthAndWellness />
       <PulseCheck onSubmit={handlePulseCheckSubmit} />
       <LearningAndDevelopment />
-      <InspirationalStories />*/}
+      <InspirationalStories />
     </>
   );
 };

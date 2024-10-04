@@ -10,15 +10,19 @@ const WebSocketTest = () => {
   >([]);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [customMessage, setCustomMessage] = useState("");
-  const [receivedMessages, setReceivedMessages] = useState<string[]>([]);
+  const [receivedMessages, setReceivedMessages] = useState<
+    { text: string; isSent: boolean }[]
+  >([]);
 
-  const onMessageReceived = (message: string) => {
-    const receivedData = JSON.parse(message);
-    setReceivedMessages((prevMessages) => [...prevMessages, message]);
-    if (
-      receivedData.type === "userConnected" ||
-      receivedData.type === "userDisconnected"
-    ) {
+  const onMessageReceived = (message: string, type: string) => {
+    console.log("Received message:", message);
+    const receivedMessage = {
+      text: message, // The message content from the WebSocket
+      isSent: false, // Flag indicating it's a received message
+    };
+
+    setReceivedMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    if (type === "userConnected" || type === "userDisconnected") {
       loadUsers().then(setUsers);
     }
   };
@@ -51,8 +55,22 @@ const WebSocketTest = () => {
 
   const handleSendMessage = () => {
     if (selectedUserId) {
+      const sentMessage = {
+        text: customMessage,
+        //userId: selectedUserId,
+        isSent: true, // Indicate that this is a sent message
+      };
       sendMessage("sendMessage", customMessage, selectedUserId);
+      setReceivedMessages((prevMessages) => [...prevMessages, sentMessage]);
+      setCustomMessage("");
     }
+  };
+
+  const handleRefreshUsers = async () => {
+    setIsLoading(true); // Show loading spinner while fetching
+    const updatedUsers = await loadUsers();
+    setUsers(updatedUsers);
+    setIsLoading(false); // Hide loading spinner after fetching
   };
 
   return (
@@ -62,6 +80,7 @@ const WebSocketTest = () => {
       <button onClick={connectWebSocket}>Connect</button>
       <button onClick={disconnectWebSocket}>Disconnect</button>
       <h2>Connected Users</h2>
+      <button onClick={handleRefreshUsers}>Refresh Users</button>
       {isLoading ? (
         <div style={{ margin: "20px 0" }}>
           <Spinner loading={true} />
@@ -74,14 +93,14 @@ const WebSocketTest = () => {
               style={{
                 cursor: "pointer",
                 backgroundColor:
-                  selectedUserId === user.userId ? "#d3d3d3" : "white",
+                  selectedUserId === user.connectionId ? "#d3d3d3" : "white",
                 padding: "10px",
                 border: "1px solid #ccc",
                 marginBottom: "5px",
               }}
               onClick={() => handleSelect(user.connectionId)}
             >
-              {user.connectionId} (ID: {user.userId})
+              {user.userId} (ID: {user.connectionId})
             </li>
           ))}
         </ul>
@@ -106,8 +125,17 @@ const WebSocketTest = () => {
       >
         {receivedMessages.length > 0 ? (
           receivedMessages.map((msg, index) => (
-            <p key={index} style={{ margin: 0 }}>
-              {msg}
+            <p
+              key={index}
+              style={{
+                margin: 0,
+                textAlign: msg.isSent ? "right" : "left", // Align sent messages to the right
+                backgroundColor: msg.isSent ? "#daf8e3" : "#f1f1f1", // Different background color
+                padding: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              {msg.text}
             </p>
           ))
         ) : (

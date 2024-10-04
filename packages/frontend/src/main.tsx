@@ -27,6 +27,15 @@ Amplify.configure({
       },
     ],
   },
+  WSAPI: {
+    endpoints: [
+      {
+        name: "websocket",
+        endpoint: config.WebSocketAPI.URL,
+        region: config.WebSocketAPI.REGION,
+      },
+    ],
+  },
 });
 
 createRoot(document.getElementById("root")!).render(

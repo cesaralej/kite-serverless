@@ -8,6 +8,10 @@ const config = {
     REGION: import.meta.env.VITE_REGION,
     URL: import.meta.env.VITE_API_URL,
   },
+  WebSocketAPI: {
+    REGION: import.meta.env.VITE_REGION,
+    URL: import.meta.env.VITE_WS_API_URL,
+  },
   cognito: {
     REGION: import.meta.env.VITE_REGION,
     USER_POOL_ID: import.meta.env.VITE_USER_POOL_ID,

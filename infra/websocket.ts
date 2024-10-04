@@ -1,6 +1,9 @@
 import { messagesTable } from "./storage";
 import { connectionsTable } from "./storage";
 
+const region = aws.getRegionOutput().name;
+const accountId = aws.getCallerIdentityOutput({}).accountId;
+
 export const wsapi = new sst.aws.ApiGatewayWebSocket("WSApi", {
   transform: {
     route: {
@@ -13,24 +16,27 @@ export const wsapi = new sst.aws.ApiGatewayWebSocket("WSApi", {
 
 wsapi.route("$connect", {
   handler: "packages/functions/src/conversations/connect.main",
-  link: [connectionsTable],
 });
 wsapi.route("$default", "packages/functions/src/conversations/default.main");
 wsapi.route("$disconnect", {
   handler: "packages/functions/src/conversations/disconnect.main",
-  link: [connectionsTable],
 });
 wsapi.route("sendMessage", {
   handler: "packages/functions/src/conversations/sendMessage.main",
-  link: [connectionsTable, messagesTable],
   permissions: [
     {
       actions: ["execute-api:*"],
       resources: [
-        "arn:aws:execute-api:us-east-1:376129882365:0ck7r5veaj/*/*/*/*",
+        $concat(
+          "arn:aws:execute-api:",
+          region,
+          ":",
+          accountId,
+          ":",
+          wsapi.nodes.api.id,
+          "/*/*/*"
+        ),
       ],
     },
   ],
 });
-
-/* hello */

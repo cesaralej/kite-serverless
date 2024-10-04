@@ -1,21 +1,22 @@
 // useWebSocket.ts
 import { useState } from "react";
 import { Auth } from "aws-amplify";
+import config from "../config.ts";
 
 export const useWebSocket = (
-  onMessageReceived: (message: string) => void,
+  onMessageReceived: (message: string, type: string) => void,
   onConnectionStatusChange: (status: string) => void
 ) => {
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [connectionStatus, setConnectionStatus] = useState("Not connected");
 
   const connectWebSocket = async () => {
-    const credentials = await Auth.currentCredentials();
-    const identityId = credentials.identityId;
+    const credentials = await Auth.currentAuthenticatedUser();
+    const name = credentials.attributes["name"];
 
     // TODO: Replace the WebSocket URL with a dynamic one
     const websocket = new WebSocket(
-      `wss://0ck7r5veaj.execute-api.us-east-1.amazonaws.com/$default?identityId=${identityId}`
+      `${config.WebSocketAPI.URL}?identityId=${name}`
     );
 
     websocket.onopen = () => {
@@ -30,7 +31,8 @@ export const useWebSocket = (
     };
 
     websocket.onmessage = (message) => {
-      onMessageReceived(message.data);
+      //console.log("Received onmessage:", message);
+      onMessageReceived(message.data, message.type);
     };
 
     websocket.onclose = () => {
@@ -48,11 +50,13 @@ export const useWebSocket = (
   };
 
   const sendMessage = (action: string, message: string, userId: string) => {
+    console.log("Sending message:", message);
     if (ws && ws.readyState === WebSocket.OPEN) {
       const msg = {
         action,
         data: { message, userId },
       };
+      console.log("Sending data:", msg);
       ws.send(JSON.stringify(msg));
     }
   };
