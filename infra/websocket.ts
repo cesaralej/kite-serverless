@@ -1,5 +1,4 @@
-import { messagesTable } from "./storage";
-import { connectionsTable } from "./storage";
+import { messagesTable, connectionsTable, usersTable } from "./storage";
 
 const region = aws.getRegionOutput().name;
 const accountId = aws.getCallerIdentityOutput({}).accountId;
@@ -8,7 +7,7 @@ export const wsapi = new sst.aws.ApiGatewayWebSocket("WSApi", {
   transform: {
     route: {
       handler: {
-        link: [messagesTable, connectionsTable],
+        link: [messagesTable, usersTable, connectionsTable],
       },
     },
   },

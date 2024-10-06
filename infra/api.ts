@@ -1,11 +1,11 @@
-import { connectionsTable } from "./storage";
+import { usersTable } from "./storage";
 
 // Create the API
 export const api = new sst.aws.ApiGatewayV2("Api", {
   transform: {
     route: {
       handler: {
-        link: [connectionsTable],
+        link: [usersTable],
       },
       args: {
         auth: { iam: true },
@@ -14,4 +14,8 @@ export const api = new sst.aws.ApiGatewayV2("Api", {
   },
 });
 
+api.route(
+  "POST /connections",
+  "packages/functions/src/connections/create.main"
+);
 api.route("GET /connections", "packages/functions/src/connections/list.main");

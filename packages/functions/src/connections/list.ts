@@ -7,7 +7,7 @@ const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const main = Util.handler(async (event) => {
   const params = {
-    TableName: Resource.Connections.name,
+    TableName: Resource.Users.name,
   };
 
   const result = await dynamoDb.send(new ScanCommand(params));

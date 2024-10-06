@@ -3,11 +3,23 @@ import { loadUsers } from "../api/users";
 import { useWebSocket } from "../hooks/useWebSocket";
 import Spinner from "./Spinner";
 
+interface User {
+  connectionId: string; // ID of the WebSocket connection
+  userId: string; // Unique user ID
+  email: string; // User's email address
+  name: string; // User's name
+  profilePicture?: string; // Optional profile picture URL
+  role: string; // User's role
+  department: string; // User's department
+  onlineStatus: boolean; // User's online status
+  lastSeen?: number; // Timestamp of when the user was last seen
+  unreadMessageCount: number; // Number of unread messages
+  conversations: string[]; // List of conversation IDs
+}
+
 const WebSocketTest = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState<
-    { connectionId: string; userId: string }[]
-  >([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [customMessage, setCustomMessage] = useState("");
   const [receivedMessages, setReceivedMessages] = useState<
@@ -45,6 +57,7 @@ const WebSocketTest = () => {
     loadUsers().then((users) => {
       setUsers(users);
       setIsLoading(false);
+      console.log("Users loaded:", users);
     });
   }, []);
 
@@ -57,7 +70,7 @@ const WebSocketTest = () => {
     if (selectedUserId) {
       const sentMessage = {
         text: customMessage,
-        //userId: selectedUserId,
+        userId: selectedUserId, // The recipient's user ID
         isSent: true, // Indicate that this is a sent message
       };
       sendMessage("sendMessage", customMessage, selectedUserId);
@@ -73,6 +86,22 @@ const WebSocketTest = () => {
     setIsLoading(false); // Hide loading spinner after fetching
   };
 
+  const listStyle = {
+    listStyleType: "none", // Remove default list styles
+    padding: 0, // Remove default padding
+  };
+
+  const userItemStyle = {
+    cursor: "pointer",
+    padding: "10px",
+    border: "1px solid #ccc",
+    marginBottom: "5px",
+    transition: "background-color 0.3s", // Smooth transition effect
+  };
+
+  const getBackgroundColor = (connectionId: string) =>
+    selectedUserId === connectionId ? "#d3d3d3" : "white";
+
   return (
     <div style={{ marginBottom: "50px" }}>
       <h1>WebSocket Test</h1>
@@ -86,21 +115,17 @@ const WebSocketTest = () => {
           <Spinner loading={true} />
         </div>
       ) : (
-        <ul>
+        <ul style={listStyle}>
           {users.map((user) => (
             <li
-              key={user.connectionId}
+              key={user.userId}
               style={{
-                cursor: "pointer",
-                backgroundColor:
-                  selectedUserId === user.connectionId ? "#d3d3d3" : "white",
-                padding: "10px",
-                border: "1px solid #ccc",
-                marginBottom: "5px",
+                ...userItemStyle,
+                backgroundColor: getBackgroundColor(user.userId),
               }}
-              onClick={() => handleSelect(user.connectionId)}
+              onClick={() => handleSelect(user.userId)}
             >
-              {user.userId} (ID: {user.connectionId})
+              {user.userId} (Online: {user.onlineStatus ? "Yes" : "No"})
             </li>
           ))}
         </ul>
