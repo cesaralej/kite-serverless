@@ -31,7 +31,7 @@ export const useWebSocket = (
     };
 
     websocket.onmessage = (message) => {
-      //console.log("Received onmessage:", message);
+      console.log("Received onmessage:", message);
       onMessageReceived(message.data, message.type);
     };
 
@@ -49,14 +49,19 @@ export const useWebSocket = (
     }
   };
 
-  const sendMessage = (action: string, message: string, userId: string) => {
-    console.log("Sending message:", message);
+  const sendMessage = (
+    action: string,
+    message: string,
+    userId: string,
+    userConn: string
+  ) => {
+    //console.log("Sending message:", message);
     if (ws && ws.readyState === WebSocket.OPEN) {
       const msg = {
         action,
-        data: { message, userId },
+        data: { message, userId, userConn },
       };
-      console.log("Sending data:", msg);
+      //console.log("Sending data:", msg);
       ws.send(JSON.stringify(msg));
     }
   };

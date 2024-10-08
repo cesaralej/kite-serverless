@@ -11,8 +11,7 @@ import HealthAndWellness from "../components/Homepage/HealthAndWellness";
 import LearningAndDevelopment from "../components/Homepage/LearningAndDevelopment";
 import InspirationalStories from "../components/Homepage/InspirationalStories";
 import PulseCheck from "../components/Homepage/PulseCheck";
-import WebSocketTest from "../components/WebSocketTest";
-import UserCreateDB from "../components/UserCreateDB";
+//import UserCreateDB from "../components/UserCreateDB";
 
 const Home = () => {
   const [name, setName] = useState<string | null>(null);
@@ -47,8 +46,6 @@ const Home = () => {
     <>
       {/* Main body content */}
       <WelcomeMessage name={name} />
-      <WebSocketTest />
-      <UserCreateDB />
       <CompanyAnnouncements />
       <TaskManagement />
       <EventsCard />

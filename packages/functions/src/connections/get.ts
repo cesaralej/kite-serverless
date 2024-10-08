@@ -8,11 +8,9 @@ const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 export const main = Util.handler(async (event) => {
   const params = {
     TableName: Resource.Messages.name,
-    // 'Key' defines the partition key and sort key of
-    // the item to be retrieved
     Key: {
       userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
-      messageId: event?.pathParameters?.id, // The id of the note from the path
+      //messageId: event?.pathParameters?.id, // The id of the note from the path
     },
   };
 

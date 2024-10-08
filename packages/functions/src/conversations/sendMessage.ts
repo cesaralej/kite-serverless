@@ -21,9 +21,11 @@ export const main: APIGatewayProxyHandler = async (event) => {
   //console.log("Body:", body.data);
 
   // Extract the actual message content from the body
+  //console.log(body);
   const messageContent = body.data.message;
-  //console.log("Message content:", messageContent);
-  const connectionId = body.data.userId;
+  const toUserId = body.data.userId;
+  const toConnectionId = body.data.userConn;
+  const connectionId = event.requestContext.connectionId;
 
   if (!messageContent) {
     return {
@@ -33,19 +35,39 @@ export const main: APIGatewayProxyHandler = async (event) => {
   }
 
   try {
+    const getParams = {
+      TableName: Resource.Connections.name,
+      Key: {
+        connectionId: connectionId, // Assuming you are using connectionId as the key
+      },
+    };
+
+    let userId;
+
+    const result = await dynamoDb.send(new GetCommand(getParams));
+
+    if (result.Item) {
+      userId = result.Item.userId; // Assuming userId is stored in the same entry
+    } else {
+      console.error(`No entry found for connectionId: ${connectionId}`);
+    }
+
     // Parameters for DynamoDB PutCommand
-    const params = {
+    const putParams = {
       TableName: Resource.Messages.name, // Table linked to the "Messages" resource
       Item: {
         messageId: uuid.v1(), // Use a unique ID (timestamp in this case)
-        userId: connectionId, // From the incoming request
+        userId: userId, // From the incoming request
+        connectionId: connectionId, // From the incoming request
+        toUserId: toUserId, // The recipient's user ID
+        toConnectionId: toConnectionId, // The recipient's connection ID
         content: messageContent, // The actual message content from WebSocket
         createdAt: Date.now(), // Current Unix timestamp
       },
     };
 
     // Store the message in DynamoDB
-    await dynamoDb.send(new PutCommand(params));
+    await dynamoDb.send(new PutCommand(putParams));
 
     const apigwManagementApi = new ApiGatewayManagementApiClient({
       apiVersion: "2018-11-29",
@@ -57,8 +79,8 @@ export const main: APIGatewayProxyHandler = async (event) => {
     });
 
     const postParams = {
-      ConnectionId: connectionId,
-      Data: messageContent,
+      ConnectionId: toConnectionId,
+      Data: JSON.stringify(putParams.Item),
     };
 
     await apigwManagementApi.send(new PostToConnectionCommand(postParams));

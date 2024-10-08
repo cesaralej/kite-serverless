@@ -44,7 +44,17 @@ export const main = Util.handler(async (event) => {
   };
 
   await dynamoDb.send(new UpdateCommand(params));
+  console.log(
+    "Updated User:",
+    params.Key.userId,
+    params.ExpressionAttributeValues[":webSocketConnectionId"]
+  );
   await dynamoDb.send(new PutCommand(params2));
+  console.log(
+    "Put Connection:",
+    params2.Item.userId,
+    params2.Item.connectionId
+  );
 
   return JSON.stringify(params.ExpressionAttributeValues);
 });

@@ -36,7 +36,7 @@ export const main = Util.handler(async (event) => {
     console.error(`No entry found for connectionId: ${connectionId}`);
   }
 
-  console.log(`Disconnecting user: ${userId}`);
+  //console.log(`Disconnecting user: ${userId}`);
 
   const updateParams = {
     TableName: Resource.Users.name,
@@ -54,7 +54,7 @@ export const main = Util.handler(async (event) => {
   };
 
   await dynamoDb.send(new UpdateCommand(updateParams));
-  console.log(`Connection offline for user: ${userId}`);
+  //console.log(`Connection offline for user: ${userId}`);
 
   const deleteParams = {
     TableName: Resource.Connections.name,
@@ -63,7 +63,7 @@ export const main = Util.handler(async (event) => {
     },
   };
   await dynamoDb.send(new DeleteCommand(deleteParams));
-  console.log(`Deleted connection entry for connectionId: ${connectionId}`);
+  //console.log(`Deleted connection entry for connectionId: ${connectionId}`);
 
   return JSON.stringify(updateParams.ExpressionAttributeValues);
 });
