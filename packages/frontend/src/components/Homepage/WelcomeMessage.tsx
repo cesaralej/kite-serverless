@@ -16,7 +16,6 @@ const Banner = styled(Box)(() => ({
   color: "#333",
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
   boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
 }));
 
